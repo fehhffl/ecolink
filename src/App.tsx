@@ -22,9 +22,7 @@ function App() {
             <Box
                 width={"50%"}
                 component={"img"}
-                src={
-                    "https://img.freepik.com/free-photo/top-view-plant-growing-out-laptop_23-2149198344.jpg?t=st=1726514184~exp=1726517784~hmac=6388f870a6e11dc7b8b26fbe7cae9884c1b87ea542e68ee028fc19fc0ef8cefe&w=1800"
-                }
+                src={"https://twosides.org.br/wp-content/uploads/sites/15/2021/03/Pilhas.png"}
             ></Box>
             <Box
                 sx={{
