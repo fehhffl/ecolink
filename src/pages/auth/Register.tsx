@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
+
 function App() {
   const [cpf, setCpf] = useState('')
   const navigate = useNavigate()
@@ -21,49 +22,51 @@ function App() {
       sx={{
         alignItems: 'center',
         display: 'flex',
-        width: '50%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: '100vh',
+        position: 'relative',
+
       }}
     >
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
           flexDirection: 'column',
-          gap: '16px'
+          gap: '16px',
+
         }}
       >
-        <Box width={400} marginBottom={'16px'}>
-          <Typography variant={'h4'} align={'left'}>
-            Cadastro
-          </Typography>
-        </Box>
+        <Typography variant={'h4'} align={'left'}>
+          Cadastro
+        </Typography>
 
-        <Box width={400}>
-          <Typography variant={'subtitle2'} align={'left'}>
-            Informações Pessoais.
-          </Typography>
-        </Box>
+        <Typography variant={'subtitle2'} align={'left'}>
+          Informações Pessoais.
+        </Typography>
 
         <Stack direction={'row'} spacing={2}>
-          <TextField id="nome" label="Nome" variant="outlined" />
-          <TextField id="sobrenome" label="Sobrenome" variant="outlined" />
+          <TextField id="nome" label="Nome" variant="outlined" fullWidth />
+          <TextField id="sobrenome" label="Sobrenome" variant="outlined" fullWidth />
         </Stack>
 
-        <Stack width={400} spacing={2} flexDirection={'column'}>
-          <TextField id="email" label="Email" variant="outlined" />
+        <Stack spacing={2}>
+          <TextField id="email" label="Email" variant="outlined" fullWidth />
 
           {/* Campo de CPF com formatação manual */}
-          <TextField id="cpf" label="CPF" variant="outlined" value={cpf} onChange={handleCpfChange} />
+          <TextField
+            id="cpf"
+            label="CPF"
+            variant="outlined"
+            value={cpf}
+            onChange={handleCpfChange}
+            fullWidth
+          />
         </Stack>
 
-        <Box width={400}>
-          <Typography variant={'subtitle2'} align={'left'}>
-            Endereço.
-          </Typography>
-        </Box>
+        <Typography variant={'subtitle2'} align={'left'}>
+          Endereço.
+        </Typography>
 
         <Stack direction={'row'} spacing={2}>
           {/* Aceitar apenas números no campo de Número da Casa */}
@@ -72,15 +75,14 @@ function App() {
             label="Número da Casa"
             variant="outlined"
             type="number" // Campo só aceita números
+            fullWidth
           />
-          <TextField id="bairro" label="Bairro" variant="outlined" />
+          <TextField id="bairro" label="Bairro" variant="outlined" fullWidth />
         </Stack>
 
-        <Stack width={400} spacing={2} flexDirection={'column'}>
-          <TextField id="rua" label="Rua" variant="outlined" />
-        </Stack>
+        <TextField id="rua" label="Rua" variant="outlined" fullWidth />
 
-        <Button variant="contained" size="large">
+        <Button variant="contained" size="large" fullWidth>
           Cadastrar
         </Button>
 
@@ -95,7 +97,6 @@ function App() {
         </Link>
       </Box>
     </Box>
-
   )
 }
 

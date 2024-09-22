@@ -5,16 +5,24 @@ import { Outlet } from 'react-router-dom'
 
 export function AuthLayout() {
     return (
-        <Stack direction={'row'} style={{ justifyContent: 'space-around' }}>
-
+        <Stack direction="row" sx={{ width: '100%', height: '100vh' }}>
             <Box
-                width={'50%'}
-                component={'img'}
-                src={'https://twosides.org.br/wp-content/uploads/sites/15/2021/03/Pilhas.png'}
-            ></Box>
-            <div>
+                sx={{
+                    width: '50%',
+                    backgroundColor: 'rgba(244, 244, 244, 1)',
+                }}
+            >
+
+            </Box>
+            <Box
+                sx={{
+                    width: '50%',
+                    backgroundColor: 'white',
+                }}
+            >
                 <Outlet />
-            </div>
-        </Stack >
+            </Box>
+        </Stack>
+
     )
 }

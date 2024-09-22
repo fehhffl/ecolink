@@ -9,6 +9,8 @@ import ProductDetails from './pages/app/ProductDetails '
 import { AppLayout } from './pages/_layouts/app'
 import { AuthLayout } from './pages/_layouts/auth'
 
+
+
 const isAuthenticated = true
 
 export const router = createBrowserRouter([
