@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Link, Stack, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import { useTheme } from '../../App'
 
-
-function App() {
+export function Register() {
   const [cpf, setCpf] = useState('')
   const navigate = useNavigate()
-
+  const { isDarkMode, toggleTheme } = useTheme() // Usa o contexto de tema
   // Função para formatar o CPF
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value.replace(/\D/g, '') // Remove tudo que não for dígito
@@ -28,6 +30,29 @@ function App() {
 
       }}
     >
+      <IconButton
+        size="small"
+        onClick={toggleTheme}
+        color="inherit"
+        sx={{
+          mr: 1,
+          border: '1px solid',
+          borderColor: '#cdd7e1',
+          borderRadius: '4px',
+          position: 'absolute',
+          top: '20px',
+          right: '40px',
+          textTransform: 'none',
+
+          fontWeight: 'bold',
+        }}
+      >
+        {isDarkMode.palette.mode === 'dark' ? (
+          <LightModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+        ) : (
+          <DarkModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+        )}
+      </IconButton>
       <Box
         sx={{
           display: 'flex',
@@ -100,4 +125,4 @@ function App() {
   )
 }
 
-export default App
+

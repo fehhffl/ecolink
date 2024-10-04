@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, Card, CardContent, CardMedia, Typography, Button, ButtonBase } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Categoria, getAllProducts, Product, categories } from "../../repositories/ProductRepository";
+import React, { useEffect, useState } from 'react'
+import { Box, Grid, Card, CardContent, CardMedia, Typography, Button, ButtonBase } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Categoria, getAllProducts, Product, categories } from '../../repositories/ProductRepository'
 
 // Definindo o tipo de categoria
 
@@ -10,29 +10,29 @@ import { Categoria, getAllProducts, Product, categories } from "../../repositori
 // Definindo categorias disponíveis como um array de valores do tipo Categoria
 
 function Home() {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Product[]>([])
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
     function viewDidLoad() {
-        populateProducts();
+        populateProducts()
     }
 
-    useEffect(viewDidLoad, []);
+    useEffect(viewDidLoad, [])
 
     // Estado para armazenar a categoria selecionada
-    const [selectedCategory, setSelectedCategory] = useState<Categoria | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<Categoria | null>(null)
 
     // Função para manipular a seleção da categoria
     const handleCategorySelect = (category: Categoria | null) => {
-        setSelectedCategory(category);
-    };
+        setSelectedCategory(category)
+    }
 
     async function populateProducts() {
-        const products = await getAllProducts();
-        setProducts(products); // getAllProducts retorna um array de produtos
+        const products = await getAllProducts()
+        setProducts(products) // getAllProducts retorna um array de produtos
         setFilteredProducts(
             selectedCategory ? products.filter((product) => product.categoria === selectedCategory) : products
-        );
+        )
     }
 
     return (
@@ -63,20 +63,20 @@ function Home() {
                     </Grid>
                 </Box>
                 <Typography variant="h6" gutterBottom>
-                    {selectedCategory ? selectedCategory : "Todos os produtos"}
+                    {selectedCategory ? selectedCategory : 'Todos os produtos'}
                 </Typography>
                 <Grid container spacing={3}>
                     {filteredProducts.map((product) => (
                         <Grid item xs={12} sm={6} md={4} key={product.id}>
                             <Link to={`/product/${product.id}`}>
-                                <ButtonBase sx={{ width: "100%" }}>
+                                <ButtonBase sx={{ width: '100%' }}>
                                     <Card
                                         sx={{
-                                            width: "100%",
-                                            transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                                            "&:hover": {
-                                                transform: "scale(1.05)", // Aumenta o card ao passar o mouse
-                                                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)" // Adiciona uma sombra mais forte
+                                            width: '100%',
+                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                            '&:hover': {
+                                                transform: 'scale(1.05)', // Aumenta o card ao passar o mouse
+                                                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' // Adiciona uma sombra mais forte
                                             }
                                         }}
                                     >
@@ -86,7 +86,7 @@ function Home() {
                                             image={product.image}
                                             alt={product.title}
                                         />
-                                        <CardContent sx={{ textAlign: "left" }}>
+                                        <CardContent sx={{ textAlign: 'left' }}>
                                             <Typography gutterBottom variant="h6" component="div">
                                                 {product.title}
                                             </Typography>
@@ -111,7 +111,7 @@ function Home() {
                 </Grid>
             </Box>
         </>
-    );
+    )
 }
 
-export default Home;
+export default Home

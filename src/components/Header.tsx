@@ -1,197 +1,122 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import AddIcon from "@mui/icons-material/Add"; // Importa o ícone de "mais"
-import { useNavigate } from "react-router-dom"; // Para navegação
-
-const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto"
-    }
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create("width"),
-        width: "100%",
-        [theme.breakpoints.up("md")]: {
-            width: "20ch"
-        }
-    }
-}));
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import MenuItem from '@mui/material/MenuItem'
+import { InputAdornment, ListItemIcon, TextField } from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import InventoryIcon from '@mui/icons-material/Inventory'
+import {
+    Account,
+} from '@toolpad/core'
+import { useNavigate } from 'react-router-dom' // Para navegação
+import SideBar from './SideBar'
+import SearchIcon from '@mui/icons-material/Search'
+import { useTheme } from '../App' // Importa o hook
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import AddIcon from '@mui/icons-material/Add'
 
 export default function Header() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-    const navigate = useNavigate(); // Hook de navegação
-
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
+    const navigate = useNavigate()
+    const { isDarkMode, toggleTheme } = useTheme() // Usa o contexto de tema
     const handleNavigateToCreateDonate = () => {
-        navigate("/create-donate"); // Navegar para a tela de criação de doação
-    };
+        navigate('/create-donate') // Navega para a rota create-donate
+    }
+    function MenuItemsComponent() {
 
-    const menuId = "primary-search-account-menu";
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right"
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right"
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
+        return (
+            <>
+                <MenuItem onClick={() => navigate('/userProfile')}>
+                    <ListItemIcon>
+                        <AccountCircleIcon />
+                    </ListItemIcon>
+                    Perfil do Usuário
+                </MenuItem>
+                <MenuItem onClick={() => navigate('/donation')}>
+                    <ListItemIcon>
+                        < InventoryIcon />
+                    </ListItemIcon>
 
-    const mobileMenuId = "primary-search-account-menu-mobile";
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right"
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right"
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
+                    Minhas Doações
+                </MenuItem>
+            </>
+        )
+    }
+
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: "#272727" }}>
-                <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
-                        <MenuIcon />
-                    </IconButton>
+        <Box
+            sx={{
+                gap: 2,
+                bgcolor: 'background.surface',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gridColumn: '1 / -1',
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+                position: 'sticky',
+                top: 0,
+                zIndex: 1100,
+            }}
+        >
 
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-                    </Search>
-                    <Box sx={{ flexGrow: 1 }} />
+            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
 
-                    {/* Novo botão de "mais" para navegar para /create-donate */}
-                    <IconButton
-                        size="large"
-                        aria-label="create donation"
-                        aria-haspopup="true"
-                        onClick={handleNavigateToCreateDonate}
-                        color="inherit"
-                        sx={{ mr: 2 }} // Margem à direita para espaçamento
-                    >
-                        <AddIcon />
-                    </IconButton>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <SideBar></SideBar>
 
-                    <IconButton
-                        size="large"
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}
-                        color="inherit"
-                    >
-                        <AccountCircle />
-                    </IconButton>
+                    <TextField
 
-                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                        variant="outlined"
+                        size="small"
+                        placeholder='Pesquisar doação...'
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
+                            aria-label="create donation"
                             aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
+                            onClick={handleNavigateToCreateDonate}
                             color="inherit"
+
                         >
-                            <MoreIcon />
+                            <AddIcon />
                         </IconButton>
                     </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
+                    <IconButton onClick={toggleTheme} color="inherit" sx={{ mr: 1 }}>
+                        {isDarkMode.palette.mode === 'light' ? (
+                            <DarkModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+                        ) : (
+                            <LightModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+                        )}
+                    </IconButton>
+
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Account
+                            slots={{
+                                menuItems: MenuItemsComponent,
+                            }}
+                        />
+                    </Box>
+
+
+                </Box>
+            </Toolbar>
+
         </Box>
-    );
+
+    )
 }

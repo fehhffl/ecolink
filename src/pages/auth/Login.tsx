@@ -1,9 +1,13 @@
 import React from 'react'
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography, Link, IconButton } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+
+import { useTheme } from '../../App'
 
 const signInForm = z.object({
     email: z.string().email('Formato de email inválido'),
@@ -13,6 +17,8 @@ type SignInForm = z.infer<typeof signInForm>
 
 export function Login() {
     const navigate = useNavigate()
+    const { isDarkMode, toggleTheme } = useTheme() // Usa o contexto de tema
+
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignInForm>({
         resolver: zodResolver(signInForm),
     })
@@ -33,24 +39,30 @@ export function Login() {
                 position: 'relative',
             }}
         >
-            <Button
-                variant="text"
-                onClick={() => navigate('/cadastrar')}
+
+            <IconButton
+                size="small"
+                onClick={toggleTheme}
+                color="inherit"
                 sx={{
+                    mr: 1,
+                    border: '1px solid',
+                    borderColor: '#cdd7e1',
+                    borderRadius: '4px',
                     position: 'absolute',
                     top: '20px',
-                    right: '20px',
+                    right: '40px',
                     textTransform: 'none',
-                    color: 'black',
+
                     fontWeight: 'bold',
-                    '&:hover': {
-                        backgroundColor: 'rgba(244, 244, 244, 1)'
-                    },
                 }}
             >
-                Criar nova conta
-            </Button>
-
+                {isDarkMode.palette.mode === 'dark' ? (
+                    <LightModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+                ) : (
+                    <DarkModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
+                )}
+            </IconButton>
             <Box
                 sx={{
                     display: 'flex',
@@ -100,6 +112,16 @@ export function Login() {
                     </Button>
 
                 </form>
+                <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => {
+                        navigate('/cadastrar')
+                    }}
+
+                >
+                    Cadastrar
+                </Link>
             </Box>
         </Box>
 
