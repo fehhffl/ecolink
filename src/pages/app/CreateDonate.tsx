@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Grid, MenuItem, Paper } from "@mui/material";
+import ProductDetail from "./ProductDetails ";
 
 const categories = ["Memória RAM", "Processador", "Placa de Vídeo", "Placa Mãe", "Fonte", "Periférico"];
 
