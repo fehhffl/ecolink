@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { Box, Button, TextField, Typography, Grid, MenuItem, Paper } from "@mui/material";
-import ProductDetail from "./ProductDetails ";
+import React, { useState } from 'react'
+import { Box, Button, TextField, Typography, Grid, MenuItem, Paper } from '@mui/material'
 
-const categories = ["Memória RAM", "Processador", "Placa de Vídeo", "Placa Mãe", "Fonte", "Periférico"];
+
+const categories = ['Memória RAM', 'Processador', 'Placa de Vídeo', 'Placa Mãe', 'Fonte', 'Periférico']
 
 function CreateDonate() {
     // Ajustar o tipo de image para string | null
-    const [image, setImage] = useState<string | null>(null);
-    const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
+    const [image, setImage] = useState<string | null>(null)
+    const [title, setTitle] = useState('')
+    const [category, setCategory] = useState('')
+    const [description, setDescription] = useState('')
 
     // Especificar o tipo do evento de arquivo
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+        const file = event.target.files?.[0]
         if (file) {
-            setImage(URL.createObjectURL(file)); // Atualizar o estado com a string da URL
+            setImage(URL.createObjectURL(file)) // Atualizar o estado com a string da URL
         }
-    };
+    }
 
     return (
         <Box sx={{ padding: 4 }}>
@@ -30,13 +30,13 @@ function CreateDonate() {
                     <Grid item xs={12} sm={6}>
                         <Box
                             sx={{
-                                width: "100%",
+                                width: '100%',
                                 height: 250,
-                                border: "1px solid #ccc",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "column",
+                                border: '1px solid #ccc',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'column',
                                 borderRadius: 2
                             }}
                         >
@@ -44,7 +44,7 @@ function CreateDonate() {
                                 <img
                                     src={image}
                                     alt="Uploaded"
-                                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                                 />
                             ) : (
                                 <>
@@ -107,7 +107,7 @@ function CreateDonate() {
                 </Grid>
             </Paper>
         </Box>
-    );
+    )
 }
 
-export default CreateDonate;
+export default CreateDonate

@@ -3,6 +3,7 @@ import { Box, Grid, Card, CardContent, CardMedia, Typography, Button, ButtonBase
 import { Link } from 'react-router-dom'
 import { Categoria, getAllProducts, Product, categories } from '../../repositories/ProductRepository'
 
+
 // Definindo o tipo de categoria
 
 // Lista de produtos com categorias definidas usando o tipo "Categoria"
@@ -10,9 +11,8 @@ import { Categoria, getAllProducts, Product, categories } from '../../repositori
 // Definindo categorias disponíveis como um array de valores do tipo Categoria
 
 function Home() {
-    const [products, setProducts] = useState<Product[]>([])
+    const [donations, setDonations] = useState<Product[]>([])
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-
     function viewDidLoad() {
         populateProducts()
     }
@@ -24,16 +24,21 @@ function Home() {
 
     // Função para manipular a seleção da categoria
     const handleCategorySelect = (category: Categoria | null) => {
+
         setSelectedCategory(category)
+        const filtered = category
+            ? donations.filter((donation) => donation.categoria === category)
+            : donations // Se nenhuma categoria for selecionada, mostra todos os produtos
+        setFilteredProducts(filtered)
+
     }
 
     async function populateProducts() {
-        const products = await getAllProducts()
-        setProducts(products) // getAllProducts retorna um array de produtos
-        setFilteredProducts(
-            selectedCategory ? products.filter((product) => product.categoria === selectedCategory) : products
-        )
+        const donations = await getAllProducts()
+        setDonations(donations) // getAllProducts retorna um array de produtos
+        setFilteredProducts(donations)
     }
+
 
     return (
         <>
@@ -66,9 +71,9 @@ function Home() {
                     {selectedCategory ? selectedCategory : 'Todos os produtos'}
                 </Typography>
                 <Grid container spacing={3}>
-                    {filteredProducts.map((product) => (
-                        <Grid item xs={12} sm={6} md={4} key={product.id}>
-                            <Link to={`/product/${product.id}`}>
+                    {filteredProducts.map((donation) => (
+                        <Grid item xs={12} sm={6} md={4} key={donation.id}>
+                            <Link to={`/donation/${donation.id}`}>
                                 <ButtonBase sx={{ width: '100%' }}>
                                     <Card
                                         sx={{
@@ -83,24 +88,24 @@ function Home() {
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image={product.image}
-                                            alt={product.title}
+                                            image={donation.image}
+                                            alt={donation.title}
                                         />
                                         <CardContent sx={{ textAlign: 'left' }}>
                                             <Typography gutterBottom variant="h6" component="div">
-                                                {product.title}
+                                                {donation.title}
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary">
-                                                {product.description}
+                                                {donation.description}
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary">
-                                                {product.location}
+                                                {donation.location}
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary">
-                                                <strong>Dono:</strong> {product.nomeDono}
+                                                <strong>Dono:</strong> {donation.nomeDono}
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary">
-                                                <strong>Contato:</strong> {product.numeroDono}
+                                                <strong>Contato:</strong> {donation.numeroDono}
                                             </Typography>
                                         </CardContent>
                                     </Card>

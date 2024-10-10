@@ -5,7 +5,7 @@ import { Login } from './pages/auth/Login'
 import Home from './pages/app/Home'
 import ProtectedRoute from './ProtectedLayout/ProtectedRoute'
 import CreateDonate from './pages/app/CreateDonate'
-import ProductDetails from './pages/app/ProductDetails '
+import { DonationDetails } from './pages/app/DonationDetails '
 import { AppLayout } from './pages/_layouts/app'
 import { AuthLayout } from './pages/_layouts/auth'
 
@@ -21,8 +21,8 @@ export const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: '/product/:id',
-                element: <ProductDetails />
+                path: '/donation/:id',
+                element: <DonationDetails />
             },
             {
                 path: '/create-donate',
