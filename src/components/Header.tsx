@@ -27,7 +27,7 @@ export default function Header() {
 
         return (
             <>
-                <MenuItem onClick={() => navigate('/userProfile')}>
+                <MenuItem onClick={() => navigate('/profile')}>
                     <ListItemIcon>
                         <AccountCircleIcon />
                     </ListItemIcon>
@@ -66,7 +66,7 @@ export default function Header() {
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
 
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <SideBar></SideBar>
+                    <SideBar  ></SideBar>
 
                     <TextField
 

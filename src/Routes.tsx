@@ -8,6 +8,8 @@ import CreateDonate from './pages/app/CreateDonate'
 import { DonationDetails } from './pages/app/DonationDetails '
 import { AppLayout } from './pages/_layouts/app'
 import { AuthLayout } from './pages/_layouts/auth'
+import { UserProfile } from './pages/app/UserProfile'
+import { Donation } from './pages/app/Donation'
 
 const isAuthenticated = true
 
@@ -29,6 +31,22 @@ export const router = createBrowserRouter([
                 element: (
                     <ProtectedRoute isAuth={isAuthenticated}>
                         <CreateDonate />
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: '/profile',
+                element: (
+                    <ProtectedRoute isAuth={isAuthenticated}>
+                        <UserProfile />
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: '/donation',
+                element: (
+                    <ProtectedRoute isAuth={isAuthenticated}>
+                        <Donation />
                     </ProtectedRoute>
                 )
             }

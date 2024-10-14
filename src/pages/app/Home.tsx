@@ -72,13 +72,14 @@ function Home() {
                 </Typography>
                 <Grid container spacing={3}>
                     {filteredProducts.map((donation) => (
-                        <Grid item xs={12} sm={6} md={4} key={donation.id}>
+                        <Grid item xs={12} sm={6} md={4} key={donation.id} >
                             <Link to={`/donation/${donation.id}`}>
                                 <ButtonBase sx={{ width: '100%' }}>
                                     <Card
                                         sx={{
                                             width: '100%',
                                             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                            // backgroundColor: theme.palette.background.default,
                                             '&:hover': {
                                                 transform: 'scale(1.05)', // Aumenta o card ao passar o mouse
                                                 boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' // Adiciona uma sombra mais forte

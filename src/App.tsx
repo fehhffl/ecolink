@@ -29,6 +29,9 @@ const demoSession: Session = {
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
+        background: {
+            default: 'black', // Cor de fundo padrão
+        },
     },
 })
 

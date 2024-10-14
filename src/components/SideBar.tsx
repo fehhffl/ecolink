@@ -2,7 +2,6 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -30,10 +29,15 @@ export default function SideBar() {
         alignItems: 'center',
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
+        backgroundColor: theme.palette.background.default,
+
     }))
     const DrawerList = (
-        <Box sx={{ width: 300 }} role="presentation" onClick={toggleDrawer(false)}>
+        <Box sx={{
+            width: 270, backgroundColor: theme.palette.background.default, height: '100%', borderBottom: '1px solid',
+            borderRight: '1px solid',
+            borderColor: 'divider',
+        }} role="presentation" onClick={toggleDrawer(false)}>
             <List >
 
                 <ListItem key="home" disablePadding>
@@ -47,7 +51,7 @@ export default function SideBar() {
 
                 </ListItem>
                 <ListItem key="user" disablePadding>
-                    <ListItemButton component={Link} to="/userProfile" >
+                    <ListItemButton component={Link} to="/profile" >
                         <ListItemIcon>
                             <AccountCircleIcon></AccountCircleIcon>
                         </ListItemIcon>
@@ -87,13 +91,17 @@ export default function SideBar() {
                 <MenuIcon />
             </IconButton>
 
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-                <DrawerHeader>
+            <Drawer open={open} onClose={toggleDrawer(false)} >
+                <DrawerHeader sx={{
+                    borderBottom: '1px solid',
+                    borderRight: '1px solid',
+                    borderColor: 'divider',
+                }}>
                     <IconButton onClick={toggleDrawer(false)}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
-                <Divider />
+
                 {DrawerList}
             </Drawer>
         </div>
