@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, Grid, Paper } from '@mui/material'
+import { Box, } from '@mui/material'
 
 export function DonationDetails() {
     // Informações do produto
@@ -22,52 +22,7 @@ export function DonationDetails() {
                 justifyContent: 'center'
             }}
         >
-            <Paper elevation={3} sx={{ padding: 3, width: '100%', maxWidth: 1200 }}>
-                <Grid container spacing={2}>
-                    {/* Coluna da imagem */}
-                    <Grid item xs={12} sm={6}>
-                        <Box
-                            component="img"
-                            src={product.image}
-                            alt={product.title}
-                            sx={{
-                                width: '100%',
-                                height: 'auto', // Altura automática para manter a proporção
-                                maxHeight: '400px', // Tamanho máximo para a altura
-                                objectFit: 'contain', // Garante que a imagem se ajuste sem distorção
-                                borderRadius: 2
-                            }}
-                        />
-                    </Grid>
-
-                    {/* Coluna das informações */}
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h3" gutterBottom>
-                            {product.title}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Dono: </strong> {product.nomeDono}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Tel: </strong> {product.numeroDono}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Localização: </strong> {product.location}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Categoria: </strong> {product.categoria}
-                        </Typography>
-                    </Grid>
-                </Grid>
-
-                {/* Descrição abaixo */}
-                <Box mt={4}>
-                    <Typography variant="h5">Descrição :</Typography>
-                    <Typography variant="body1" mt={2}>
-                        {product.description}
-                    </Typography>
-                </Box>
-            </Paper>
+            {product.title}
         </Box>
     )
 }

@@ -1,122 +1,47 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import MenuItem from '@mui/material/MenuItem'
-import { InputAdornment, ListItemIcon, TextField } from '@mui/material'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import InventoryIcon from '@mui/icons-material/Inventory'
-import {
-    Account,
-} from '@toolpad/core'
-import { useNavigate } from 'react-router-dom' // Para navegação
-import SideBar from './SideBar'
-import SearchIcon from '@mui/icons-material/Search'
-import { useTheme } from '../App' // Importa o hook
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import AddIcon from '@mui/icons-material/Add'
+import GlobalStyles from '@mui/joy/GlobalStyles'
+import IconButton from '@mui/joy/IconButton'
+import Sheet from '@mui/joy/Sheet'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
+import { toggleSidebar } from '../utils'
 
 export default function Header() {
-    const navigate = useNavigate()
-    const { isDarkMode, toggleTheme } = useTheme() // Usa o contexto de tema
-    const handleNavigateToCreateDonate = () => {
-        navigate('/create-donate') // Navega para a rota create-donate
-    }
-    function MenuItemsComponent() {
-
-        return (
-            <>
-                <MenuItem onClick={() => navigate('/profile')}>
-                    <ListItemIcon>
-                        <AccountCircleIcon />
-                    </ListItemIcon>
-                    Perfil do Usuário
-                </MenuItem>
-                <MenuItem onClick={() => navigate('/donation')}>
-                    <ListItemIcon>
-                        < InventoryIcon />
-                    </ListItemIcon>
-
-                    Minhas Doações
-                </MenuItem>
-            </>
-        )
-    }
-
-
     return (
-        <Box
+        <Sheet
             sx={{
-                gap: 2,
-                bgcolor: 'background.surface',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                display: { xs: 'flex', md: 'none' },
                 alignItems: 'center',
-                gridColumn: '1 / -1',
-                borderBottom: '1px solid',
-                borderColor: 'divider',
-                position: 'sticky',
+                justifyContent: 'space-between',
+                position: 'fixed',
                 top: 0,
-                zIndex: 1100,
+                width: '100vw',
+                height: 'var(--Header-height)',
+                zIndex: 9998,
+                p: 2,
+                gap: 1,
+                borderBottom: '1px solid',
+                borderColor: 'background.level1',
+                boxShadow: 'sm',
             }}
         >
-
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <SideBar  ></SideBar>
-
-                    <TextField
-
-                        variant="outlined"
-                        size="small"
-                        placeholder='Pesquisar doação...'
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box>
-
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="create donation"
-                            aria-haspopup="true"
-                            onClick={handleNavigateToCreateDonate}
-                            color="inherit"
-
-                        >
-                            <AddIcon />
-                        </IconButton>
-                    </Box>
-                    <IconButton onClick={toggleTheme} color="inherit" sx={{ mr: 1 }}>
-                        {isDarkMode.palette.mode === 'light' ? (
-                            <DarkModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
-                        ) : (
-                            <LightModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
-                        )}
-                    </IconButton>
-
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Account
-                            slots={{
-                                menuItems: MenuItemsComponent,
-                            }}
-                        />
-                    </Box>
-
-
-                </Box>
-            </Toolbar>
-
-        </Box>
-
+            <GlobalStyles
+                styles={(theme) => ({
+                    ':root': {
+                        '--Header-height': '52px',
+                        [theme.breakpoints.up('md')]: {
+                            '--Header-height': '0px',
+                        },
+                    },
+                })}
+            />
+            <IconButton
+                onClick={() => toggleSidebar()}
+                variant="outlined"
+                color="neutral"
+                size="sm"
+            >
+                <MenuRoundedIcon />
+            </IconButton>
+        </Sheet>
     )
 }

@@ -1,89 +1,95 @@
-import { Box, Button, Stack } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useTheme } from '../../App' // Importa o hook
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-export function AuthLayout() {
-    const { isDarkMode } = useTheme() // Usa o contexto de tema
-    const [opacityDark, setOpacityDark] = useState(1)
-    const [opacityLight, setOpacityLight] = useState(0)
-    const navigate = useNavigate()
 
-    useEffect(() => {
-        if (isDarkMode.palette.mode === 'dark') {
-            setOpacityDark(1)
-            setOpacityLight(0)
-        } else {
-            setOpacityDark(0)
-            setOpacityLight(1)
-        }
-    }, [isDarkMode])
+import React from 'react'
+import { Link, Outlet } from 'react-router-dom'
+
+import Box from '@mui/joy/Box'
+
+
+import IconButton from '@mui/joy/IconButton'
+import Typography from '@mui/joy/Typography'
+
+import ComputerIcon from '@mui/icons-material/Computer'
+import ColorSchemeToggle from '../../components/ColorSchemeToggle'
+
+
+
+export function AuthLayout() {
+
 
     return (
-        <Stack direction="row" sx={{ width: '100%', height: '100vh' }}>
-
+        <>
             <Box
-                sx={{
-                    width: '50%',
-                    backgroundColor: 'rgba(244, 244, 244, 1)',
-                    overflow: 'hidden', // Evita a rolagem
-                    position: 'relative', // Para posicionar as imagens
-                }}
+                sx={(theme) => ({
+                    width: { xs: '100%', md: '50vw' },
+                    transition: 'width var(--Transition-duration)',
+                    transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
+                    position: 'relative',
+                    zIndex: 1,
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    backdropFilter: 'blur(12px)',
+                    backgroundColor: 'rgba(255 255 255 / 0.2)',
+                    [theme.getColorSchemeSelector('dark')]: {
+                        backgroundColor: 'rgba(19 19 24 / 0.4)',
+                    },
+                })}
             >
-
-                <Button
-                    variant="text"
-                    onClick={() => navigate('/')}
+                <Box
                     sx={{
-                        position: 'absolute',
-                        top: '20px',
-                        left: '20px',
-                        textTransform: 'none',
-                        fontWeight: 'bold',
-                        zIndex: 10, // Z-index mais alto para o botão
-                        color: 'white'
+                        display: 'flex',
+                        flexDirection: 'column',
+                        minHeight: '100dvh',
+                        width: '100%',
+                        px: 2,
                     }}
                 >
-                    <ArrowBackIosIcon fontSize="small" />
-                    Home
+                    <Box
+                        component="header"
+                        sx={{ py: 3, display: 'flex', justifyContent: 'space-between' }}
+                    >
+                        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center', textDecoration: 'none' }} component={Link} to="/">
+                            <IconButton variant="soft" color="primary" size="sm">
+                                <ComputerIcon></ComputerIcon>
+                            </IconButton>
+                            <Typography level="title-lg">Donatech</Typography>
+                        </Box>
+                        <ColorSchemeToggle sx={{ ml: 'auto' }} />
+                    </Box>
 
-                </Button>
+                    <Outlet />
 
-                <img
-                    src="https://tse3.mm.bing.net/th?id=OIG3.NcYxR3rq9OIBIE8aJoJ9&pid=ImgGn"
-                    alt="Dark Mode"
-                    style={{
-                        width: '100%',
-                        maxHeight: '100vh',
-                        objectFit: 'cover',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        opacity: opacityDark,
-                        transition: 'opacity 0.5s ease-in-out',
-                        zIndex: 1, // Z-index menor para a imagem de Dark Mode
-                    }}
-                />
-
-                <img
-                    src="https://tse3.mm.bing.net/th?id=OIG2._Mu0_4Mez6j1Au_p5gn5&pid=ImgGn"
-                    alt="Light Mode"
-                    style={{
-                        width: '100%',
-                        maxHeight: '100vh',
-                        objectFit: 'cover',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        opacity: opacityLight,
-                        transition: 'opacity 0.5s ease-in-out',
-                        zIndex: 1, // Z-index menor para a imagem de Light Mode
-                    }}
-                />
+                    <Box component="footer" sx={{ py: 3 }}>
+                        <Typography level="body-xs" sx={{ textAlign: 'center' }}>
+                            © Donatech {new Date().getFullYear()}
+                        </Typography>
+                    </Box>
+                </Box>
             </Box>
-            <Box sx={{ width: '50%' }}>
-                <Outlet />
-            </Box>
-        </Stack >
+            <Box
+                sx={(theme) => ({
+                    height: '100%',
+                    position: 'fixed',
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    left: { xs: 0, md: '50vw' },
+                    transition:
+                        'background-image var(--Transition-duration), left var(--Transition-duration) !important',
+                    transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
+                    backgroundColor: 'background.level1',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundImage:
+                        'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
+                    [theme.getColorSchemeSelector('dark')]: {
+                        backgroundImage:
+                            'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
+                    },
+                })}
+            />
+        </>
+
+
     )
 }

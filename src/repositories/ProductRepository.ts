@@ -1,6 +1,7 @@
 export type Product = {
     id: number;
     title: string;
+    status: string;
     description: string;
     location: string;
     image: string;
@@ -21,6 +22,7 @@ export const categories: Categoria[] = [
 ]
 export async function getAllProducts(): Promise<Product[]> {
     const donations = await fetch('http://localhost:3333/donations')
+
     const data = await donations.json()
     return data
 }

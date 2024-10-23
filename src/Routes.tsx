@@ -1,19 +1,23 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import { Register } from './pages/auth/Register'
-import { Login } from './pages/auth/Login'
-import Home from './pages/app/Home'
-import ProtectedRoute from './ProtectedLayout/ProtectedRoute'
-import CreateDonate from './pages/app/CreateDonate'
-import { DonationDetails } from './pages/app/DonationDetails '
+import { UserAreaLayout } from './pages/_layouts/userArea'
+import MyProfile from './pages/app/MyProfile'
+import MyDonations from './pages/app/MyDonations'
+import MyMenssages from './pages/app/MyMenssages'
+import { Home } from './pages/app/Home'
 import { AppLayout } from './pages/_layouts/app'
+import { DonationDetails } from './pages/app/DonationDetails '
 import { AuthLayout } from './pages/_layouts/auth'
-import { UserProfile } from './pages/app/UserProfile'
-import { Donation } from './pages/app/Donation'
-
-const isAuthenticated = true
+import { Login } from './pages/auth/Login'
+import { Register } from './pages/auth/Register'
+import Sobre from './pages/app/Sobre'
 
 export const router = createBrowserRouter([
+    {
+        path: '/sobre',
+        element: <Sobre />
+
+    },
     {
         path: '/',
         element: <AppLayout />,
@@ -26,28 +30,35 @@ export const router = createBrowserRouter([
                 path: '/donation/:id',
                 element: <DonationDetails />
             },
+
+
+        ]
+    },
+    {
+        path: '/',
+        element: <UserAreaLayout />,
+        children: [
             {
-                path: '/create-donate',
+                path: '/perfil',
                 element: (
-                    <ProtectedRoute isAuth={isAuthenticated}>
-                        <CreateDonate />
-                    </ProtectedRoute>
+                    <MyProfile />
+
                 )
             },
             {
-                path: '/profile',
+                path: '/mydonations',
                 element: (
-                    <ProtectedRoute isAuth={isAuthenticated}>
-                        <UserProfile />
-                    </ProtectedRoute>
+
+                    <MyDonations />
+
                 )
             },
             {
-                path: '/donation',
+                path: '/mymessages',
                 element: (
-                    <ProtectedRoute isAuth={isAuthenticated}>
-                        <Donation />
-                    </ProtectedRoute>
+
+                    <MyMenssages />
+
                 )
             }
         ]

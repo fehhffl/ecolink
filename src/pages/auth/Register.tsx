@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
-import { Box, Button, IconButton, Link, Stack, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import { useTheme } from '../../App'
+import Box from '@mui/joy/Box'
+import Button from '@mui/joy/Button'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import Input from '@mui/joy/Input'
+import Typography from '@mui/joy/Typography'
+import Stack from '@mui/joy/Stack'
+import ApartmentIcon from '@mui/icons-material/Apartment'
+
 
 export function Register() {
   const [cpf, setCpf] = useState('')
   const navigate = useNavigate()
-  const { isDarkMode, toggleTheme } = useTheme() // Usa o contexto de tema
+
   // Função para formatar o CPF
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value.replace(/\D/g, '') // Remove tudo que não for dígito
@@ -21,106 +26,95 @@ export function Register() {
 
   return (
     <Box
+      component="main"
       sx={{
-        alignItems: 'center',
+        my: 'auto',
+        py: 2,
+        pb: 5,
         display: 'flex',
-        justifyContent: 'center',
-        height: '100vh',
-        position: 'relative',
-
+        flexDirection: 'column',
+        width: 400,
+        maxWidth: '100%',
+        mx: 'auto',
+        borderRadius: 'sm',
+        '& form': {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        },
+        ['& .MuiFormLabel-asterisk']: {
+          visibility: 'hidden',
+        },
       }}
     >
-      <IconButton
-        size="small"
-        onClick={toggleTheme}
-        color="inherit"
-        sx={{
-          mr: 1,
-          border: '1px solid',
-          borderColor: '#cdd7e1',
-          borderRadius: '4px',
-          position: 'absolute',
-          top: '20px',
-          right: '40px',
-          textTransform: 'none',
+      <Stack sx={{ mb: 2 }}>
+        <Stack sx={{ gap: 1 }}>
+          <Typography component="h1" level="h3">
+            Cadastrar
+          </Typography>
 
-          fontWeight: 'bold',
-        }}
-      >
-        {isDarkMode.palette.mode === 'dark' ? (
-          <LightModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
-        ) : (
-          <DarkModeIcon sx={{ color: isDarkMode.palette.primary.main }} />
-        )}
-      </IconButton>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: '16px',
 
-        }}
-      >
-        <Typography variant={'h4'} align={'left'}>
-          Cadastro
-        </Typography>
-
-        <Typography variant={'subtitle2'} align={'left'}>
-          Informações Pessoais.
-        </Typography>
-
-        <Stack direction={'row'} spacing={2}>
-          <TextField id="nome" label="Nome" variant="outlined" fullWidth />
-          <TextField id="sobrenome" label="Sobrenome" variant="outlined" fullWidth />
         </Stack>
 
-        <Stack spacing={2}>
-          <TextField id="email" label="Email" variant="outlined" fullWidth />
+      </Stack>
+      <Stack sx={{ gap: 0, mt: 2 }}>
+        <form
 
-          {/* Campo de CPF com formatação manual */}
-          <TextField
-            id="cpf"
-            label="CPF"
-            variant="outlined"
-            value={cpf}
-            onChange={handleCpfChange}
-            fullWidth
-          />
-        </Stack>
-
-        <Typography variant={'subtitle2'} align={'left'}>
-          Endereço.
-        </Typography>
-
-        <Stack direction={'row'} spacing={2}>
-          {/* Aceitar apenas números no campo de Número da Casa */}
-          <TextField
-            id="numero-casa"
-            label="Número da Casa"
-            variant="outlined"
-            type="number" // Campo só aceita números
-            fullWidth
-          />
-          <TextField id="bairro" label="Bairro" variant="outlined" fullWidth />
-        </Stack>
-
-        <TextField id="rua" label="Rua" variant="outlined" fullWidth />
-
-        <Button variant="contained" size="large" fullWidth>
-          Cadastrar
-        </Button>
-
-        <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            navigate('/login')
-          }}
         >
-          Já possui uma conta?
-        </Link>
-      </Box>
+          <FormLabel>Informações Pessoais</FormLabel>
+          <FormControl required>
+
+            <Input name="nome" placeholder='Nome' />
+          </FormControl>
+
+          <FormControl required>
+
+            <Input name="cpf" placeholder='CPF' />
+          </FormControl>
+
+          <FormControl required>
+
+            <Input type="email" name="email" placeholder='E-mail' />
+          </FormControl>
+
+          <FormControl required>
+
+            <Input type="password" name="password" placeholder='Senha' />
+          </FormControl>
+          <FormLabel>Endereço</FormLabel>
+          <FormControl sx={{ display: { sm: 'contents' } }}>
+
+            <Input
+              startDecorator={<ApartmentIcon />}
+              placeholder='Cidade'
+            >
+            </Input>
+          </FormControl>
+          <FormControl sx={{ flexGrow: 1 }}>
+            <Input sx={{ flexGrow: 1 }} placeholder='Bairro' />
+          </FormControl>
+          <Stack direction="row" spacing={2}>
+
+            <FormControl sx={{ flexGrow: 1 }}>
+              <Input sx={{ flexGrow: 1 }} placeholder='Rua' />
+            </FormControl>
+            <FormControl >
+              <Input
+                sx={{ width: '100px' }}
+                placeholder='Número'
+              />
+            </FormControl>
+          </Stack>
+
+          <Stack sx={{ gap: 4, mt: 2 }}>
+
+            <Button type="submit" fullWidth>
+              Cadastrar
+            </Button>
+          </Stack>
+
+        </form>
+      </Stack>
     </Box>
   )
 }
